@@ -1,0 +1,22 @@
+spring:
+  data:
+    cassandra:
+      keyspace-name: bootcamp
+      connection:
+        init-query-timeout: 10s
+        connect-timeout: 10s
+      port: '9042'
+      contact-points: 127.0.0.1
+      request:
+        timeout: 10s
+      schema-action: CREATE_IF_NOT_EXISTS
+      local-datacenter: datacenter1
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+server:
+  port: '8080'
