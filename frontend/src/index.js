@@ -1,40 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Blogs from './pages/Blogs';
+import Contact from './pages/Contact';
+import NoPage from './pages/NoPage';
 
-function MyForm() {
-  const [inputs, setInputs] = useState({});
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
-
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(JSON.stringify(inputs))
-  }
-
+function App() {
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Enter your name:
-        <input 
-          type='text'
-          name='username'
-          value={inputs.username || ""}
-          onChange={handleChange}/>
-      </label>
-      <label>Enter your age:
-        <input
-          type='number'
-          name='age'
-          value={inputs.age}
-          onChange={handleChange}/>
-      </label>
-      <input type='submit'/>
-    </form>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='blogs' element={<Blogs />} />
+          <Route path='contact' element={<Contact />} />
+          <Route path='*' element={<NoPage />} />          
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<MyForm />);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
